@@ -1,0 +1,51 @@
+Goal:
+- Turn this into a flashcard game via the browser.
+
+=============================================================================================
+
+Ideas:
+- Figure out arrays in terms of JS or React.
+- Figure out randomizer.
+- Figure out flip animation on click.
+- Percentage calculation out of X amount of questions.
+- If a question has been answered, don't ask again from array.
+- Check mark, X mark, ? mark.
+  - Anything marked with ? mark throws question back into a separate array to pull from later.
+  - A check to see if anything is in the ? queue.
+    - If there is something in the ? queue, pull question from ? queue.
+    - If there is nothing in the ? queue, do percentage calc.
+  - Use "chip" for React code.
+    - OnClick does a fill.
+      - OnClick "spawns" a confirm button.
+- Possibly swap question set from array to object?
+
+
+=============================================================================================
+
+To do (non-priority):
+- Aesthetic touches.
+  - Rounded corners
+  - Color
+  - Background image
+  - "Adaptive" web design
+
+To do (priority):
+- Figure out if the React app can be accessed like a website.
+- Create a functional Q&A thing.
+- Use "card" from MUI.
+- Add buttons.
+- Make buttons do something.
+- Look up shuffle array.
+- Throw questions under "unsure" into an "unsure" array.
+
+
+=============================================================================================
+
+Done:
+- Figured out workable format for question database.
+- Created Repository.
+- Created React App for PMBOK game.
+- Finished 100-question data bank.
+- Converted file into CSV.
+- Converted CSV file into JSON.
+- Created a backend for the JSON.

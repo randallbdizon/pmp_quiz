@@ -1,0 +1,11 @@
+Ideas:
+- Figure out arrays in terms of JS.
+- Figure out randomizer.
+- Figure out flip animation on click.
+- Percentage calculation out of X amount of questions.
+- If a question has been answered, don't ask again from array.
+- Check mark, X mark, ? mark.
+  - Anything marked with ? mark throws question back into a separate array to pull from later.
+  - A check to see if anything is in the ? queue.
+    - If there is something in the ? queue, pull question from ? queue.
+    - If there is nothing in the ? queue, do percentage calc.
