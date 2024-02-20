@@ -2,7 +2,6 @@ import React from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
 
 export default function Questions() {
     const [questions, setQuestions] = React.useState([]);
@@ -32,7 +31,7 @@ export default function Questions() {
     };
 
     if (questions.length === 0) {
-        return <div>Loading...</div>;
+        return <center><div>Loading...</div></center>
     }
 
     return (
@@ -57,34 +56,22 @@ function Cardbox({ queh }) {
     };
 
     return (
-        <Card sx={{ minWidth: 275, maxWidth: 750, margin: '15vh' }}>
+        <Card sx={{ minWidth: 300, maxWidth: 750, margin: '50px 25%', }}>
             <CardContent>
-                <Typography variant="h5" component="div">
-                    {queh.Question}
-                </Typography>
+                <h3>{queh.Question}</h3>
                 <br />
-                <Typography sx={{ mb: 1.5 }}>
-                    A: {queh.A}
-                </Typography>
-                <Typography sx={{ mb: 1.5 }}>
-                    B: {queh.B}
-                </Typography>
-                <Typography sx={{ mb: 1.5 }}>
-                    C: {queh.C}
-                </Typography>
-                <Typography sx={{ mb: 1.5 }}>
-                    D: {queh.D}
-                </Typography>
+                <p>A: {queh.A}</p>
+                <p>B: {queh.B}</p>
+                <p>C: {queh.C}</p>
+                <p>D: {queh.D}</p>
                 {showAnswer && (
                     <>
-                        <Typography variant="body2">
-                            Answer: {queh.Answer}
-                        </Typography>
-                        <Typography variant="body2" color="text.secondary">
-                            Reason: {queh.Reason}
-                        </Typography>
+                        <p>Answer: {queh.Answer}</p>
+                        <p>Reason: {queh.Reason}</p>
                     </>
                 )}
+
+                {/* Use of the toggle here. */}
                 <Button variant="outlined" sx={{ marginTop: 2 }} onClick={toggleAnswer}>
                     {showAnswer ? 'Hide answer' : 'Show answer'}
                 </Button>
