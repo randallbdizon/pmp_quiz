@@ -8,6 +8,65 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 
+//Display section
+function Cardbox({ queh, selectedValue, handleRadioChange, isCorrect }) {
+    // Just a quick toggle to reveal answer
+    const [showAnswer, setShowAnswer] = React.useState(false);
+    const toggleAnswer = () => {
+        setShowAnswer(!showAnswer);
+    };
+
+    // Button options
+    const radioOptions = ['A', 'B', 'C', 'D'].map((option) => ({
+        value: queh[option], //The problem was here; previously `answer${option}`
+        label: queh[option]
+    }));
+
+    return (
+        <Card sx={{ minWidth: 300, maxWidth: 750, margin: '0px 25%' }}>
+            <CardContent>
+                <FormControl>
+                    <FormLabel id="pmbok-question-group">PMBOK Questions 100</FormLabel>
+                    <RadioGroup
+                        aria-labelledby="pmbok-question-group"
+                        value={selectedValue}
+                        onChange={(event) => handleRadioChange(event, queh)} // Pass 'queh' along with the event
+                        name="questionOption"
+                    >
+
+                        <h3>{queh.Question}</h3>
+                        <br />
+                        {/* Dynamically generate radio buttons */}
+                        {radioOptions.map((option) => (
+                            <FormControlLabel
+                                key={option.value}
+                                value={option.value}
+                                control={<Radio />}
+                                label={option.label}
+                            />
+                        ))}
+                    </RadioGroup>
+
+
+                    {/* Use of the toggle here. */}
+                    <Button variant="outlined" sx={{ marginTop: 2 }} onClick={toggleAnswer}>
+                        {showAnswer ? 'Hide answer' : 'Show answer'}
+                    </Button>
+
+                    {showAnswer && (
+                        <>
+                            <p>Answer: {queh.Answer}</p>
+                            <p>Reason: {queh.Reason}</p>
+                        </>
+                    )}
+                </FormControl>
+            </CardContent>
+        </Card>
+    );
+
+}
+
+
 //Function section
 export default function Questions() {
     const [questions, setQuestions] = React.useState([]);
@@ -52,18 +111,11 @@ export default function Questions() {
         console.log(queh.Answer, "<- queh.Answer")
 
         if (isCorrect) {
-            console.log("Correct")
-            return <>
-                <p>DING DING DING</p>
-            </>
+            console.log("Correct answer!")
         } else {
-            console.log("Wrong")
-            return <>
-                <p>BUZZZZZZZZZZZZ</p>
-            </>
+            console.log("Wrong answer...")
         }
     };
-
 
     //If nothing is loaded or connection to db is severed, display "Loading..."
     if (questions.length === 0) {
@@ -83,60 +135,3 @@ export default function Questions() {
     );
 }
 
-//Display section
-function Cardbox({ queh, selectedValue, handleRadioChange, isCorrect }) {
-    // Just a quick toggle to reveal answer
-    const [showAnswer, setShowAnswer] = React.useState(false);
-    const toggleAnswer = () => {
-        setShowAnswer(!showAnswer);
-    };
-
-    // Button options
-    const radioOptions = ['A', 'B', 'C', 'D'].map((option) => ({
-        value: queh[option],
-        label: queh[option]
-    }));
-
-    // Move state initialization and conditional rendering inside the return statement
-    return (
-        <Card sx={{ minWidth: 300, maxWidth: 750, margin: '0px 25%' }}>
-            <CardContent>
-                <FormControl>
-                    <FormLabel id="pmbok-question-group">PMBOK Questions 100</FormLabel>
-                    <RadioGroup
-                        aria-labelledby="pmbok-question-group"
-                        value={selectedValue}
-                        onChange={(event) => handleRadioChange(event, queh)}
-                        name="questionOption"
-                    >
-                        <h3>{queh.Question}</h3>
-                        <br />
-                        {radioOptions.map((option) => (
-                            <FormControlLabel
-                                key={option.value}
-                                value={option.value}
-                                control={<Radio />}
-                                label={option.label}
-                            />
-                        ))}
-                    </RadioGroup>
-
-
-                    <p>{isCorrect ? 'Correct answer!' : 'Wrong answer...'}</p>
-
-                    {/* Use of the toggle here. */}
-                    <Button variant="outlined" sx={{ marginTop: 2 }} onClick={toggleAnswer}>
-                        {showAnswer ? 'Hide answer' : 'Show answer'}
-                    </Button>
-
-                    {showAnswer && (
-                        <>
-                            <p>Answer: {queh.Answer}</p>
-                            <p>Reason: {queh.Reason}</p>
-                        </>
-                    )}
-                </FormControl>
-            </CardContent>
-        </Card>
-    );
-}

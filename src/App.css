@@ -37,8 +37,13 @@
   }
 }
 
+@font-face {
+  font-family: Blogger Sans;
+  src: url("/src/Bloggersans-0rzv.otf");
+}
+
 * {
-  margin: 10px;
+  font-family: Blogger Sans;
 }
 
 @media only screen and (width <=676px) {

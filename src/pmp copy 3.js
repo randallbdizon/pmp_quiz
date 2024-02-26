@@ -8,7 +8,6 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 
-//Function section
 export default function Questions() {
     const [questions, setQuestions] = React.useState([]);
     const [currentIndex, setCurrentIndex] = React.useState(0); // State to track the current card index
@@ -31,7 +30,7 @@ export default function Questions() {
 
     const nextCard = () => {
         setCurrentIndex((prevIndex) => (prevIndex + 1) % questions.length);
-        setSelectedValue(''); //Clears selection
+        setSelectedValue('');
     };
 
     const prevCard = () => {
@@ -41,31 +40,18 @@ export default function Questions() {
 
     const handleRadioChange = (event, queh) => {
         const selectedAnswer = event.target.value;
-
-        // Update selected value
         setSelectedValue(selectedAnswer);
-        console.log(selectedAnswer, "<- selectedAnswer")
-
-        // Check if the selected answer matches the correct answer
-        const isCorrect = selectedAnswer.trim().toLowerCase() === queh.Answer.trim().toLowerCase();
-        console.log(isCorrect, "<- isCorrect")
-        console.log(queh.Answer, "<- queh.Answer")
-
+    
+        const isCorrect = selectedAnswer === queh.Answer;
         if (isCorrect) {
-            console.log("Correct")
-            return <>
-                <p>DING DING DING</p>
-            </>
+            // Display correct answer message
+            console.log("Correct answer!");
         } else {
-            console.log("Wrong")
-            return <>
-                <p>BUZZZZZZZZZZZZ</p>
-            </>
+            // Display wrong answer message
+            console.log("Wrong answer...");
         }
     };
 
-
-    //If nothing is loaded or connection to db is severed, display "Loading..."
     if (questions.length === 0) {
         return <center><div>Loading...</div></center>
     }
@@ -73,9 +59,9 @@ export default function Questions() {
     return (
         <>
             <center>
-                <Button variant="contained" onClick={prevCard} sx={{ marginRight: 2, marginTop: 5 }}>Previous</Button>
-                <Button variant="contained" onClick={shuffleQuestions} sx={{ marginRight: 2, marginTop: 5 }}>Shuffle</Button>
-                <Button variant="contained" onClick={nextCard} sx={{ marginTop: 5 }}>Next</Button>
+                <Button variant="contained" onClick={prevCard} sx={{ marginRight: 2 }}>Previous</Button>
+                <Button variant="contained" onClick={shuffleQuestions} sx={{ marginRight: 2 }}>Shuffle</Button>
+                <Button variant="contained" onClick={nextCard}>Next</Button>
             </center>
             {/* Render only the current card */}
             {questions.length > 0 && <Cardbox key={currentIndex} queh={questions[currentIndex]} selectedValue={selectedValue} handleRadioChange={handleRadioChange} />}
@@ -83,51 +69,32 @@ export default function Questions() {
     );
 }
 
-//Display section
-function Cardbox({ queh, selectedValue, handleRadioChange, isCorrect }) {
-    // Just a quick toggle to reveal answer
+function Cardbox({ queh, selectedValue, handleRadioChange }) {
     const [showAnswer, setShowAnswer] = React.useState(false);
+
+    //Just a quick toggle
     const toggleAnswer = () => {
         setShowAnswer(!showAnswer);
     };
 
-    // Button options
-    const radioOptions = ['A', 'B', 'C', 'D'].map((option) => ({
-        value: queh[option],
-        label: queh[option]
-    }));
-
-    // Move state initialization and conditional rendering inside the return statement
     return (
-        <Card sx={{ minWidth: 300, maxWidth: 750, margin: '0px 25%' }}>
+        <Card sx={{ minWidth: 300, maxWidth: 750, margin: '50px 25%', }}>
             <CardContent>
                 <FormControl>
                     <FormLabel id="pmbok-question-group">PMBOK Questions 100</FormLabel>
                     <RadioGroup
                         aria-labelledby="pmbok-question-group"
                         value={selectedValue}
-                        onChange={(event) => handleRadioChange(event, queh)}
+                        onChange={handleRadioChange}
                         name="questionOption"
                     >
                         <h3>{queh.Question}</h3>
                         <br />
-                        {radioOptions.map((option) => (
-                            <FormControlLabel
-                                key={option.value}
-                                value={option.value}
-                                control={<Radio />}
-                                label={option.label}
-                            />
-                        ))}
+                        <FormControlLabel value="answerA" control={<Radio />} label={queh.A} />
+                        <FormControlLabel value="answerB" control={<Radio />} label={queh.B} />
+                        <FormControlLabel value="answerC" control={<Radio />} label={queh.C} />
+                        <FormControlLabel value="answerD" control={<Radio />} label={queh.D} />
                     </RadioGroup>
-
-
-                    <p>{isCorrect ? 'Correct answer!' : 'Wrong answer...'}</p>
-
-                    {/* Use of the toggle here. */}
-                    <Button variant="outlined" sx={{ marginTop: 2 }} onClick={toggleAnswer}>
-                        {showAnswer ? 'Hide answer' : 'Show answer'}
-                    </Button>
 
                     {showAnswer && (
                         <>
@@ -135,6 +102,11 @@ function Cardbox({ queh, selectedValue, handleRadioChange, isCorrect }) {
                             <p>Reason: {queh.Reason}</p>
                         </>
                     )}
+
+                    {/* Use of the toggle here. */}
+                    <Button variant="outlined" sx={{ marginTop: 2 }} onClick={toggleAnswer}>
+                        {showAnswer ? 'Hide answer' : 'Show answer'}
+                    </Button>
                 </FormControl>
             </CardContent>
         </Card>
