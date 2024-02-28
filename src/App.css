@@ -54,3 +54,12 @@
     width: 100%;
   }
 }
+
+body {
+  background-color:#234080;
+  background-image: url("../public/business_image.jpg");
+  background-size: cover;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-position: center;
+}

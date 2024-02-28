@@ -15,7 +15,7 @@ export default function Questions() {
     const [selectedValue, setSelectedValue] = React.useState('');
 
     React.useEffect(() => {
-        fetch('https://night-excited-college.glitch.me/')
+        fetch('http://54.241.188.164:5000/data')
             .then(response => response.json())
             .then(json => setQuestions(json));
     }, []);
@@ -41,28 +41,15 @@ export default function Questions() {
 
     const handleRadioChange = (event, queh) => {
         const selectedAnswer = event.target.value;
-
+    
         // Update selected value
         setSelectedValue(selectedAnswer);
-        console.log(selectedAnswer, "<- selectedAnswer")
-
+    
         // Check if the selected answer matches the correct answer
         const isCorrect = selectedAnswer.trim().toLowerCase() === queh.Answer.trim().toLowerCase();
-        console.log(isCorrect, "<- isCorrect")
-        console.log(queh.Answer, "<- queh.Answer")
-
-        if (isCorrect) {
-            console.log("Correct")
-            return <>
-                <p>DING DING DING</p>
-            </>
-        } else {
-            console.log("Wrong")
-            return <>
-                <p>BUZZZZZZZZZZZZ</p>
-            </>
-        }
     };
+
+
 
 
     //If nothing is loaded or connection to db is severed, display "Loading..."
@@ -77,14 +64,17 @@ export default function Questions() {
                 <Button variant="contained" onClick={shuffleQuestions} sx={{ marginRight: 2, marginTop: 5 }}>Shuffle</Button>
                 <Button variant="contained" onClick={nextCard} sx={{ marginTop: 5 }}>Next</Button>
             </center>
+            <br />
             {/* Render only the current card */}
-            {questions.length > 0 && <Cardbox key={currentIndex} queh={questions[currentIndex]} selectedValue={selectedValue} handleRadioChange={handleRadioChange} />}
+            {questions.length > 0 && <Cardbox key={currentIndex} queh={questions[currentIndex]} selectedValue={selectedValue} handleRadioChange={handleRadioChange} setSelectedValue={setSelectedValue} />}
+
         </>
     );
 }
 
-//Display section
-function Cardbox({ queh, selectedValue, handleRadioChange, isCorrect }) {
+function Cardbox({ queh, selectedValue, handleRadioChange }) {
+    const [isCorrect, setIsCorrect] = React.useState(false);
+
     // Just a quick toggle to reveal answer
     const [showAnswer, setShowAnswer] = React.useState(false);
     const toggleAnswer = () => {
@@ -97,7 +87,9 @@ function Cardbox({ queh, selectedValue, handleRadioChange, isCorrect }) {
         label: queh[option]
     }));
 
-    // Move state initialization and conditional rendering inside the return statement
+    // Check if the selected value is empty
+    const isValueSelected = selectedValue.trim() !== '';
+
     return (
         <Card sx={{ minWidth: 300, maxWidth: 750, margin: '0px 25%' }}>
             <CardContent>
@@ -106,7 +98,10 @@ function Cardbox({ queh, selectedValue, handleRadioChange, isCorrect }) {
                     <RadioGroup
                         aria-labelledby="pmbok-question-group"
                         value={selectedValue}
-                        onChange={(event) => handleRadioChange(event, queh)}
+                        onChange={(event) => {
+                            handleRadioChange(event, queh);
+                            setIsCorrect(event.target.value.trim().toLowerCase() === queh.Answer.trim().toLowerCase());
+                        }}
                         name="questionOption"
                     >
                         <h3>{queh.Question}</h3>
@@ -121,8 +116,8 @@ function Cardbox({ queh, selectedValue, handleRadioChange, isCorrect }) {
                         ))}
                     </RadioGroup>
 
-
-                    <p>{isCorrect ? 'Correct answer!' : 'Wrong answer...'}</p>
+                    {/* Display whether the answer is correct or wrong if a value is selected */}
+                    {isValueSelected && (isCorrect ? <p>Correct</p> : <p>Wrong</p>)}
 
                     {/* Use of the toggle here. */}
                     <Button variant="outlined" sx={{ marginTop: 2 }} onClick={toggleAnswer}>
