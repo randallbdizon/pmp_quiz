@@ -140,7 +140,7 @@ export function Intro({ startQuiz }) {
     return (
         <Card sx={{ minWidth: 300, maxWidth: 750, margin: '0px auto', border: '1px solid #ffffff', borderRadius: '20px', backgroundColor: '#ffffffaa', boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.493), 0 6px 20px 0 rgba(0, 0, 0, 0.164)' }}>
             <CardContent>
-                <h1>Welcome to the PMBOK & Agile Flashcards Quiz!</h1>
+                <h1>PMBOK & Agile Flashcards</h1>
                 <p>This quiz pulls questions from a YouTube channel by <a href='https://www.youtube.com/@davidmclachlanproject/videos'>David McLachlan</a>. Questions in particular are from PMBOK and Agile. Click on your answer to see if you got it right and press the "Show answer" button to reveal the answer and a reason for the answer. To shuffle around the cards, press the shuffle button.</p>
                 <p>Now, pull up your favorite classical or lofi hip hop music, hunker down, and let's get studying!</p>
                 <Button variant="contained" onClick={startQuiz} sx={{ marginTop: 5 }}>Start Quiz</Button>

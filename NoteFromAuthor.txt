@@ -1,0 +1,13 @@
+Salutations!
+
+I'm just a student from Olympic College who is learning Project Management in the context of Information Systems.
+As part of my project, I took 100 questions from a couple of your videos and threw them into a database, which you should see under the public folder of this GitHub repository.
+I have added the CSV, JSON, and Excel files because as it is now, the fetch code is currently pulling from a temporary IP Address using Amazon Web Services (AWS),
+which may have already expired by the time this reaches you. So, if you have a tech-savvy friend who can fix this up for you, send this their way.
+
+Things to also note is that I'm not quite sure of the image in the background is under copyright, so please change it to your liking.
+
+Anyway, hope this helps you and your community!
+
+Very respectfully,
+Randall
