@@ -1,10 +1,21 @@
 import './App.css';
-import Questions from './pmp';
+import React, { useState } from 'react';
+import { Intro, Questions } from './pmp';
 
 function App() {
+  const [quizStarted, setQuizStarted] = useState(false);
+
+  const startQuiz = () => {
+    setQuizStarted(true);
+  };
+
   return (
     <>
-      <Questions />
+      <br />
+      <div>
+        {!quizStarted && <Intro startQuiz={startQuiz} />}
+        {quizStarted && <Questions />}
+      </div>
     </>
   );
 }

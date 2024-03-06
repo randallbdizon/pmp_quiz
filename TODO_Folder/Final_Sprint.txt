@@ -1,0 +1,14 @@
+Final sprint for IS450
+
+- Figure out how to center the card for ALL resolutions.
+  - Spacing is weird on my second monitor vs main monitor.
+  - <center> centers everything, not just card position.
+- Add an explanation at the top of the page.
+- Make it more aesthetically pleasing.
+  - Different background?
+  - Sound?
+  - Change button color?
+  - Shadow to the card?
+
+If I have time:
+- Add separate "unsure" and "wrong" queue/array.
